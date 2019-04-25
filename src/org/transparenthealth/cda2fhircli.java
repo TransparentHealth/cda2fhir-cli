@@ -26,7 +26,6 @@ import org.hl7.fhir.dstu3.model.Bundle;
 
 class CommandLine {
     public static void main(String... args) {
-        // CDAUtil.loadPackages();
 
         // IResourceTransformer resTransformer = new ResourceTransformerImpl();
         System.out.println("Hello World.");
@@ -37,10 +36,11 @@ class CommandLine {
             System.out.println(args[i]);
             try{
                FileInputStream fis = new FileInputStream(args[i]);
-               ClinicalDocument cda = CDAUtil.loadAs(fis);
+               ClinicalDocument cda = CDAUtil.load(fis);
                // ContinuityOfCareDocument ccd = (ContinuityOfCareDocument) CDAUtil.loadAs(fis, ConsolPackage.eINSTANCE.getContinuityOfCareDocument());
 
-               CCDTransformerImpl ccdTransformer = new CCDTransformerImpl(IdGeneratorEnum.COUNTER);
+               // CCDTransformerImpl ccdTransformer = new CCDTransformerImpl(IdGeneratorEnum.COUNTER);
+               ICDATransformer ccdTransformer = new CCDTransformerImpl(IdGeneratorEnum.COUNTER);
                Bundle bundle = ccdTransformer.transformDocument(cda);
                //Bundle bundle = ccdTransformer.transformDocument(args[i]);
                FHIRUtil.printJSON(bundle, "out.json");
