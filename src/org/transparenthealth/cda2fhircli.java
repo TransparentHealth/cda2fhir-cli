@@ -38,10 +38,10 @@ class CommandLine {
             try{
                FileInputStream fis = new FileInputStream(args[i]);
                ClinicalDocument cda = CDAUtil.loadAs(fis);
-               ContinuityOfCareDocument ccd = (ContinuityOfCareDocument) CDAUtil.loadAs(fis, ConsolPackage.eINSTANCE.getContinuityOfCareDocument());
+               // ContinuityOfCareDocument ccd = (ContinuityOfCareDocument) CDAUtil.loadAs(fis, ConsolPackage.eINSTANCE.getContinuityOfCareDocument());
 
                CCDTransformerImpl ccdTransformer = new CCDTransformerImpl(IdGeneratorEnum.COUNTER);
-               Bundle bundle = ccdTransformer.transformDocument(ccd);
+               Bundle bundle = ccdTransformer.transformDocument(cda);
                //Bundle bundle = ccdTransformer.transformDocument(args[i]);
                FHIRUtil.printJSON(bundle, "out.json");
                }
